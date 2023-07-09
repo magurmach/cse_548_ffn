@@ -32,18 +32,32 @@ evaluator = dataset.iloc[:, :].values
 # Initialize empty subClass and currentAttackClasses in the loaded file
 subClasses = []
 currentAttackClasses = []
+attack_class_dict = {}
+attack_subclass_dict = {}
 
 # The for loop check if the attack identified, then it update subClasses and currentAttackClasses
 for i in range(len(evaluator)):
     subClass = str.lower(evaluator[i, -2])
     if subClass not in subClasses:
         subClasses.append(subClass)
+        if subClass not in attack_subclass_dict:
+            attack_subclass_dict[subClass] = 0
         for i in range(len(attacks_subClass)):
             if subClass in attacks_subClass[i] and expectedAttackClasses[i] not in currentAttackClasses:
                 currentAttackClasses.append(expectedAttackClasses[i])
+    current_attack = ''
+    for i in range(len(attacks_subClass)):
+            if subClass in attacks_subClass[i]:
+                 current_attack = expectedAttackClasses[i]
+    attack_subclass_dict[subClass] += 1
+    if current_attack not in attack_class_dict:
+         attack_class_dict[current_attack] = 0
+    attack_class_dict[current_attack] += 1
 
 # Print finding results:
 print("\nSub classes of Attacks")
 print(subClasses)
+# print(attack_subclass_dict)
 print("\n\nAttack Classes")
 print(currentAttackClasses)
+print(attack_class_dict)
