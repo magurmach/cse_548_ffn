@@ -20,9 +20,9 @@ import numpy as np
 # Available datasets: KDDTrain+.txt, KDDTest+.txt, etc. More read Data Set Introduction.html within the NSL-KDD dataset folder
 # Type the training dataset file name in ''
 TrainingDataPath = './'
-TrainingData = 'Training-a1-a2.csv'
+TrainingData = 'Training-a1.csv'
 TestDataPath = './'
-TestData = 'Testing-a1-a2-a3.csv'
+TestData = 'Testing-a2-a4.csv'
 
 # Batch Size
 BatchSize=10

@@ -65,7 +65,7 @@ ct = ColumnTransformer(
     [('one_hot_encoder', OneHotEncoder(), [1,2,3])],    # The column numbers to be transformed ([1, 2, 3] represents three columns to be transferred)
     remainder='passthrough'                         # Leave the rest of the columns untouched
 )
-X = np.array(ct.fit_transform(X), dtype=np.float64)
+X = np.array(ct.fit_transform(X), dtype=np.float)
 
 # Splitting the dataset into the Training set and Test set (75% of data are used for training)
 # reference: https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html
@@ -110,7 +110,7 @@ classifier.add(Dense(units = 1, kernel_initializer = 'uniform', activation = 'si
 # Compiling the ANN, 
 # Gradient descent algorithm “adam“, Reference: https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/
 # This loss is for a binary classification problems and is defined in Keras as “binary_crossentropy“, Reference: https://machinelearningmastery.com/how-to-choose-loss-functions-when-training-deep-learning-neural-networks/
-classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['acc'])
+classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
 
 # Fitting the ANN to the Training set
 # Train the model so that it learns a good (or good enough) mapping of rows of input data to the output classification.

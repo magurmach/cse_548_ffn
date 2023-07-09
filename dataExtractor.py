@@ -19,9 +19,9 @@ num_attack_class = 4 # total number of attack classes
 
 #All attacks in NSL-KDD classed based on their attack classes: DoS, Prob, U2R, and R2L
 attacks_subClass = [['apache2', 'back', 'land', 'neptune', 'mailbomb', 'pod', 'processtable', 'smurf', 'teardrop', 'udpstorm', 'worm'], 
-     ['ipsweep', 'mscan', 'portsweep', 'saint', 'satan'],
-     ['buffer.overflow', 'loadmodule', 'perl', 'ps', 'rootkit', 'sqlattack', 'xterm'],
-     ['ftp.write', 'guess.passwd', 'httptunnel', 'imap', 'multihop', 'named', 'phf', 'sendmail', 'snmpgetattack', 'spy', 'snmmpguess', 'warezclient', 'warezserver', 'xlock', 'xsnoop']
+     ['ipsweep', 'mscan', 'portsweep', 'saint', 'satan','nmap'],
+     ['buffer_overflow', 'loadmodule', 'perl', 'ps', 'rootkit', 'sqlattack', 'xterm'],
+     ['ftp_write', 'guess_passwd', 'httptunnel', 'imap', 'multihop', 'named', 'phf', 'sendmail', 'snmpgetattack', 'spy', 'snmpguess', 'warezclient', 'warezmaster', 'xlock', 'xsnoop']
      ]
 
 from sklearn.preprocessing import OneHotEncoder
@@ -63,8 +63,10 @@ setA_train = []
 if training_attack_class_list[0][0] != 0 and len(training_attack_class_list[0]) != num_attack_class:
     for i in range(len(X_train)):
         # exp., X_train[i, -2] is the label of attack subclass, and attacks_subClass[training_attack_class_list[0][j]-1] identify the selected attack class
+        if str.lower(str(X_train[i,-2])) == 'normal':
+            setA_train.append(X_train[i])
         for j in range(len(training_attack_class_list[0])):
-            if str.lower(str(X_train[i, -2])) in attacks_subClass[training_attack_class_list[0][j]-1] or str.lower(str(X_train[i, -2])) == 'normal':
+            if str.lower(str(X_train[i, -2])) in attacks_subClass[training_attack_class_list[0][j]-1]:
                 setA_train.append(X_train[i])
     trainingFileName="Training"
     for i in range(len(training_attack_class_list[0])):
@@ -83,8 +85,10 @@ setA_test = []
 if testing_attack_class_list[0][0] != 0 and len(testing_attack_class_list[0]) != num_attack_class:
     for i in range(len(X_test)):
         # exp., X_train[i, -2] is the label of attack subclass, and attacks_subClass[training_attack_class_list[0][j]-1] identify the selected attack class
+        if str.lower(str(X_test[i,-2])) == 'normal':
+            setA_test.append(X_test[i])
         for j in range(len(testing_attack_class_list[0])):
-            if str.lower(str(X_test[i, -2])) in attacks_subClass[testing_attack_class_list[0][j]-1] or str.lower(str(X_test[i, -2])) == 'normal':
+            if str.lower(str(X_test[i, -2])) in attacks_subClass[testing_attack_class_list[0][j]-1]:
                 setA_test.append(X_test[i])
     testingFileName="Testing"
     for i in range(len(testing_attack_class_list[0])):
