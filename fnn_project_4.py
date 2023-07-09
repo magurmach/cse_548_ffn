@@ -20,9 +20,9 @@ import numpy as np
 # Available datasets: KDDTrain+.txt, KDDTest+.txt, etc. More read Data Set Introduction.html within the NSL-KDD dataset folder
 # Type the training dataset file name in ''
 TrainingDataPath = './'
-TrainingData = 'Training-a1.csv'
+TrainingData = 'Training-a1-a2.csv'
 TestDataPath = './'
-TestData = 'Testing-a2-a4.csv'
+TestData = 'Testing-a1-a2-a3.csv'
 
 # Batch Size
 BatchSize=10
@@ -119,12 +119,24 @@ y_pred = (y_pred > 0.9)   # y_pred is 0 if less than 0.9 or equal to 0.9, y_pred
 # Making the Confusion Matrix
 # [TN, FP ]
 # [FN, TP ]
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import confusion_matrix, accuracy_score, f1_score, precision_score, recall_score
 cm = confusion_matrix(y_test, y_pred)
 print('Print the Confusion Matrix:')
 print('[ TN, FP ]')
 print('[ FN, TP ]=')
 print(cm)
+
+a = accuracy_score(y_test, y_pred)
+print('Accuracy: ', a)
+
+p = precision_score(y_test, y_pred)
+print('Precision: ', p)
+
+r = recall_score(y_test, y_pred)
+print('Recall: ', r)
+
+f1 = f1_score(y_test, y_pred)
+print('F1 measure: ', f1)
 
 ########################################
 # Part 4 - Visualizing
