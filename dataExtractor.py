@@ -24,6 +24,13 @@ attacks_subClass = [['apache2', 'back', 'land', 'neptune', 'mailbomb', 'pod', 'p
      ['ftp.write', 'guess.passwd', 'httptunnel', 'imap', 'multihop', 'named', 'phf', 'sendmail', 'snmpgetattack', 'spy', 'snmmpguess', 'warezclient', 'warezserver', 'xlock', 'xsnoop']
      ]
 
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.compose import ColumnTransformer
+ct = ColumnTransformer(
+    [('one_hot_encoder', OneHotEncoder(), [1,2,3])],    # The column numbers to be transformed ([1, 2, 3] represents three columns to be transferred)
+    remainder='passthrough'                         # Leave the rest of the columns untouched
+)
+
 # Set1 is selected attack classes
 training_attack_class_list = []
 # Set2 is removed attack classes
@@ -40,6 +47,15 @@ print("Loading Completed !\n")
 
 X_train = dataset_train.iloc[:, :].values
 X_test = dataset_test.iloc[:, :].values
+
+train_sz = len(X_train)
+
+all = np.concatenate([X_train, X_test])
+
+all = np.array(ct.fit_transform(all))
+
+X_train = all[:train_sz]
+X_test = all[train_sz:]
 
 print("Creating training set.....\n")
 setA_train = []

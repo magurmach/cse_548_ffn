@@ -20,9 +20,9 @@ import numpy as np
 # Available datasets: KDDTrain+.txt, KDDTest+.txt, etc. More read Data Set Introduction.html within the NSL-KDD dataset folder
 # Type the training dataset file name in ''
 TrainingDataPath = './'
-TrainingData = 'Training-a1-a3.csv'
+TrainingData = 'Training-a1-a2.csv'
 TestDataPath = './'
-TestData = 'Testing-a1-a3.csv'
+TestData = 'Testing-a1-a2-a3.csv'
 
 # Batch Size
 BatchSize=10
@@ -49,27 +49,6 @@ def get_dataset(file_name:str):
 
     # Convert ist to array
     y = np.array(y)
-
-    # Encoding categorical data (convert letters/words in numbers)
-    # Reference: https://medium.com/@contactsunny/label-encoder-vs-one-hot-encoder-in-machine-learning-3fc273365621
-    # The following code work without warning in Python 3.6 or older. Newer versions suggest to use ColumnTransformer
-    '''
-    from sklearn.preprocessing import LabelEncoder, OneHotEncoder
-    le = LabelEncoder()
-    X[:, 1] = le.fit_transform(X[:, 1])
-    X[:, 2] = le.fit_transform(X[:, 2])
-    X[:, 3] = le.fit_transform(X[:, 3])
-    onehotencoder = OneHotEncoder(categorical_features = [1, 2, 3])
-    X = onehotencoder.fit_transform(X).toarray()
-    '''
-    # The following code work Python 3.7 or newer
-    from sklearn.preprocessing import OneHotEncoder
-    from sklearn.compose import ColumnTransformer
-    ct = ColumnTransformer(
-        [('one_hot_encoder', OneHotEncoder(), [1,2,3])],    # The column numbers to be transformed ([1, 2, 3] represents three columns to be transferred)
-        remainder='passthrough'                         # Leave the rest of the columns untouched
-    )
-    X = np.array(ct.fit_transform(X), dtype=np.float)
     return X, y
 
 

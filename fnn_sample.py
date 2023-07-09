@@ -65,7 +65,7 @@ ct = ColumnTransformer(
     [('one_hot_encoder', OneHotEncoder(), [1,2,3])],    # The column numbers to be transformed ([1, 2, 3] represents three columns to be transferred)
     remainder='passthrough'                         # Leave the rest of the columns untouched
 )
-X = np.array(ct.fit_transform(X), dtype=np.float)
+X = np.array(ct.fit_transform(X), dtype=np.float64)
 
 # Splitting the dataset into the Training set and Test set (75% of data are used for training)
 # reference: https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html
